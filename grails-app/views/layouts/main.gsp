@@ -12,6 +12,7 @@
         <link rel="shortcut icon" href="${assetPath(src: 'favicon.ico')}" type="image/x-icon">
         <link rel="apple-touch-icon" href="${assetPath(src: 'apple-touch-icon.png')}">
         <link rel="apple-touch-icon" sizes="114x114" href="${assetPath(src: 'apple-touch-icon-retina.png')}">
+        <script type="text/jsx" src="/assets/reactjs/todo.js"></script>
         <asset:stylesheet src="application.css"/>
         <g:layoutHead/>
     </head>
@@ -39,11 +40,17 @@
             </div>
         </div>
 
-
+        <div id="content"></div>
         <div class="container">
             <g:layoutBody/>
         </div> <!-- /container -->
         <asset:javascript src="application.js"/>
         <asset:javascript src="spring-websocket" />
+    <script src="//cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script type="text/babel" src="/assets/reactjs/todo.js">
+
+    </script>
     </body>
 </html>
