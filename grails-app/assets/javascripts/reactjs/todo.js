@@ -23,7 +23,7 @@ var TodoBox = React.createClass({
         return (
             <div>
                 <a class="btn btn-small btn-success">Create todo</a>
-                <ListTodo data={this.state.data}/>
+                <ListTodo data={this.state.data} url="/api/todo"/>
             </div>
         );
     }
@@ -35,14 +35,14 @@ var TodoForm = React.createClass({
         var title = React.findDOMNode(this.refs.title).value.trim();
         var url = React.findDOMNode(this.refs.url).value.trim();
         var content = React.findDOMNode(this.refs.content).value.trim();
-        if (!text || !author || !content) {
+        if (!title || !url || !content) {
             return;
         }
-        // TODO: send request to the server
+        this.props.onTodoSubmit({title: title, content: content, url:url});
+        console.log(title+url+content);
         React.findDOMNode(this.refs.title).value = '';
         React.findDOMNode(this.refs.url).value = '';
         React.findDOMNode(this.refs.content).value = '';
-        console.log(React.findDOMNode(this.refs.title).value);
         return;
     },
     render: function() {
@@ -52,26 +52,26 @@ var TodoForm = React.createClass({
                 <form role="form" onSubmit={this.handleSubmit}>
                     <div class="form-group">
                         <label for="title">Title</label>
-                        <input class="form-control" name="title"/>
+                        <input class="form-control" ref="title"/>
                     </div>
                     <div class="form-group">
                         <label for="content">Content</label>
-                        <textarea class="form-control" rows="6" name="content"></textarea>
+                        <textarea class="form-control" rows="6" ref="content"></textarea>
                     </div>
                     <div class="form-group">
                         <label for="url">Url</label>
-                        <input class="form-control" name="url"/>
+                        <input class="form-control" ref="url"/>
                     </div>
                     <div class="form-group">
                         <label for="todoList">List</label>
-                        <select class="form-control" name="todoList">
+                        <select class="form-control" ref="todoList">
                             <option value="">Choose list</option>
                             <option value="{{todoList.id}}"></option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="tags">Tags</label>
-                        <select class="form-control" name="tags" multiple>
+                        <select class="form-control" ref="tags" multiple>
                         </select>
                     </div>
                     <input type="submit" class="btn btn-small btn-primary" value="Create"/>
@@ -97,6 +97,20 @@ var TodoRow = React.createClass({
 
 
 var ListTodo = React.createClass({
+    handleTodoSubmit: function(todo) {
+        $.ajax({
+            url: this.props.url,
+            dataType: 'json',
+            type: 'POST',
+            data: todo,
+            success: function(data) {
+                this.setState({data: data});
+            }.bind(this),
+            error: function(xhr, status, err) {
+                console.error(this.props.url, status, err.toString());
+            }.bind(this)
+        });
+    },
     render: function() {
         var todos = this.props.data.map(function(todo) {
             return (
@@ -116,13 +130,13 @@ var ListTodo = React.createClass({
                     </tr>
                     {todos}
                 </table>
-                <TodoForm/>
+                <TodoForm onTodoSubmit={this.handleTodoSubmit}/>
             </div>
         )
     }
 });
 
 React.render(
-    <TodoBox url="/todoApi" pollInterval={60000} />,
+    <TodoBox url="/api/todo" pollInterval={60000} />,
     document.getElementById('content')
 );
