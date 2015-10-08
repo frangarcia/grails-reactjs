@@ -6,7 +6,7 @@
 // to create separate JavaScript files as needed.
 //
 //= require jquery-2.1.3.js
-//= require_tree reactjs/build
+//= require_tree reactjs/views/build
 //= require_self
 //= require /webjars/bootstrap/3.3.5/js/bootstrap.min
 //= require /webjars/bootstrap-tagsinput/0.5/bootstrap-tagsinput

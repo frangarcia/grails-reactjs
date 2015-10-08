@@ -29,7 +29,8 @@
                 <g:layoutBody/>
             </div> <!-- /container -->
         </div>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react.js"></script>
+    <script src="//fb.me/react-0.14.0.js"></script>
+    <script src="//fb.me/react-with-addons-0.14.0.js"></script>
     <asset:javascript src="application.js"/>
     <asset:javascript src="spring-websocket" />
     %{--<script src="//cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>--}%
