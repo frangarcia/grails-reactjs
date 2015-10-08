@@ -12,45 +12,30 @@
         <link rel="shortcut icon" href="${assetPath(src: 'favicon.ico')}" type="image/x-icon">
         <link rel="apple-touch-icon" href="${assetPath(src: 'apple-touch-icon.png')}">
         <link rel="apple-touch-icon" sizes="114x114" href="${assetPath(src: 'apple-touch-icon-retina.png')}">
-        <script type="text/jsx" src="/assets/reactjs/todo.js"></script>
         <asset:stylesheet src="application.css"/>
         <g:layoutHead/>
     </head>
     <body>
+        <div class="container-fluid">
+            <!-- Static navbar -->
+            <div class="navbar navbar-default navbar-static-top" role="navigation">
+                <div class="container" id="navigation">
 
-        <!-- Static navbar -->
-        <div class="navbar navbar-default navbar-static-top" role="navigation">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <span class="navbar-brand">Grails-ReactJS TODO App</span>
                 </div>
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li><a href="#/todo/">Todos</a></li>
-                        <li><a href="#/tag/">Tags</a></li>
-                        <li><a href="#/todoList/">Todo Lists</a></li>
-                    </ul>
-                </div><!--/.nav-collapse -->
             </div>
+
+            <div id="content"></div>
+            <div class="container-fluid">
+                <g:layoutBody/>
+            </div> <!-- /container -->
         </div>
-
-        <div id="content"></div>
-        <div class="container">
-            <g:layoutBody/>
-        </div> <!-- /container -->
-        <asset:javascript src="application.js"/>
-        <asset:javascript src="spring-websocket" />
     <script src="//cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+    <asset:javascript src="application.js"/>
+    <asset:javascript src="spring-websocket" />
+    %{--<script src="//cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>--}%
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script type="text/babel" src="/assets/reactjs/todo.js">
-
+    <script>
+        var Alert = ReactBootstrap.Alert;
     </script>
     </body>
 </html>
