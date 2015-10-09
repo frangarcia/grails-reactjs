@@ -33,8 +33,6 @@
     <script src="//fb.me/react-with-addons-0.14.0.js"></script>
     <asset:javascript src="application.js"/>
     <asset:javascript src="spring-websocket" />
-    %{--<script src="//cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>--}%
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script>
         var Alert = ReactBootstrap.Alert;
     </script>

@@ -1,0 +1,8 @@
+app.models.Tag = Backbone.Model.extend({
+    urlRoot: '/api/tag',
+    defaults: {
+        name: '',
+        dateCreated: new Date(),
+        lastUpdated: new Date()
+    }
+});
