@@ -1,19 +1,17 @@
 var TodoListBox = React.createClass({
-    getInitialState: function() {
-        return {todoList:{}};
+    mixins: [app.backboneMixin],
+    getBackboneCollections: function () {
+        return [this.props.collection];
     },
-    loadTodoListsFromServer: function() {
-        $.ajax({
-            url: this.props.url,
-            dataType: 'json',
-            cache: false,
-            data: {max:100, sort:'id', order:'desc'},
-            success: function(data) {
-                this.setState({data: data});
-            }.bind(this),
-            error: function(xhr, status, err) {
-                console.error(this.props.url, status, err.toString());
-            }.bind(this)
+    getInitialState: function() {
+        return {todoLists:[]};
+    },
+    componentDidMount: function(prevProps, prevState) {
+        this.props.collection.fetch();
+    },
+    componentWillUnMount: function() {
+        this.props.collection.forEach(function (model) {
+            model.save();
         });
     },
     handleTodoListSubmit: function(todoList) {
@@ -31,16 +29,10 @@ var TodoListBox = React.createClass({
             }.bind(this)
         });
     },
-    getInitialState: function() {
-        return {data:[], date:new Date()};
-    },
-    componentWillMount: function() {
-        this.loadTodoListsFromServer();
-    },
     render: function() {
         return (
             <div>
-                <ListTodoList data={this.state.data}/>
+                <ListTodoList data={this.props.collection.models}/>
             </div>
         );
     }
@@ -54,7 +46,7 @@ var ListTodoList = React.createClass({
         var _this = this;
         var todoLists = this.props.data.map(function(todoList) {
             return (
-                <TableRow data={[todoList.id, todoList.name, '']}/>
+                <TableRow data={[todoList.get("id"), todoList.get("name"), '']}/>
             );
         });
         var divStyle = {

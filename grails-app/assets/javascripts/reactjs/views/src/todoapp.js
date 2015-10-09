@@ -2,24 +2,31 @@ var TodoApp = React.createClass({
     getInitialState: function() {
         return {current:'home'}
     },
+    showHomeBox: function() {
+        this.setState({current:'home'});
+        React.render(
+            <HomeBox/>,
+            document.getElementById('content')
+        );
+    },
     showTodoBox: function() {
         this.setState({current:'todo'});
         React.render(
-            <TodoBox url="/api/todo"/>,
+            <TodoBox collection={app.todos}/>,
             document.getElementById('content')
         );
     },
     showTagBox: function() {
         this.setState({current:'tag'});
         React.render(
-            <TagBox url="/api/tag"/>,
+            <TagBox collection={app.tags}/>,
             document.getElementById('content')
         );
     },
     showTodoListBox: function() {
         this.setState({current:'todoList'});
         React.render(
-            <TodoListBox url="/api/todoList"/>,
+            <TodoListBox collection={app.todoLists}/>,
             document.getElementById('content')
         );
     },
@@ -33,7 +40,7 @@ var TodoApp = React.createClass({
                         <span className="icon-bar"></span>
                         <span className="icon-bar"></span>
                     </button>
-                    <span className="navbar-brand">Grails-ReactJS TODO App</span>
+                    <span className="navbar-brand"><a onClick={this.showHomeBox}>Grails-ReactJS TODO App</a></span>
                 </div>
                 <div className="navbar-collapse collapse">
                     <ul className="nav navbar-nav">

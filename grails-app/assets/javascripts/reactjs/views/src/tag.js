@@ -1,19 +1,17 @@
 var TagBox = React.createClass({
-    getInitialState: function() {
-        return {tag:{}};
+    mixins: [app.backboneMixin],
+    getBackboneCollections: function () {
+        return [this.props.collection];
     },
-    loadTagsFromServer: function() {
-        $.ajax({
-            url: this.props.url,
-            dataType: 'json',
-            cache: false,
-            data: {max:100, sort:'id', order:'desc'},
-            success: function(data) {
-                this.setState({data: data});
-            }.bind(this),
-            error: function(xhr, status, err) {
-                console.error(this.props.url, status, err.toString());
-            }.bind(this)
+    getInitialState: function() {
+        return {tags:[]};
+    },
+    componentDidMount: function(prevProps, prevState) {
+        this.props.collection.fetch();
+    },
+    componentWillUnMount: function() {
+        this.props.collection.forEach(function (model) {
+            model.save();
         });
     },
     handleTagSubmit: function(tag) {
@@ -31,16 +29,10 @@ var TagBox = React.createClass({
             }.bind(this)
         });
     },
-    getInitialState: function() {
-        return {data:[], date:new Date()};
-    },
-    componentWillMount: function() {
-        this.loadTagsFromServer();
-    },
     render: function() {
         return (
             <div>
-                <ListTag data={this.state.data}/>
+                <ListTag data={this.props.collection.models}/>
             </div>
         );
     }
@@ -54,7 +46,7 @@ var ListTag = React.createClass({
         var _this = this;
         var tags = this.props.data.map(function(tag) {
             return (
-                <TableRow data={[tag.id, tag.name, '']}/>
+                <TableRow data={[tag.get("id"), tag.get("name"), '']}/>
             );
         });
         var divStyle = {

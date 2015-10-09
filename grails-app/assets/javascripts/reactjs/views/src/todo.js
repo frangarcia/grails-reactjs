@@ -1,19 +1,17 @@
 var TodoBox = React.createClass({
-    getInitialState: function() {
-        return {todo:{}};
+    mixins: [app.backboneMixin],
+    getBackboneCollections: function () {
+        return [this.props.collection];
     },
-    loadTodosFromServer: function() {
-        $.ajax({
-            url: this.props.url,
-            dataType: 'json',
-            cache: false,
-            data: {max:100, sort:'id', order:'desc'},
-            success: function(data) {
-                this.setState({data: data});
-            }.bind(this),
-            error: function(xhr, status, err) {
-                console.error(this.props.url, status, err.toString());
-            }.bind(this)
+    getInitialState: function() {
+        return {todos:[]};
+    },
+    componentDidMount: function(prevProps, prevState) {
+        this.props.collection.fetch();
+    },
+    componentWillUnMount: function() {
+        this.props.collection.forEach(function (model) {
+            model.save();
         });
     },
     handleTodoSubmit: function(todo) {
@@ -32,20 +30,13 @@ var TodoBox = React.createClass({
         });
     },
     handleTodoEditClick: function() {
-        this.setState({todo:{title:'titulo'}});
-        console.log('State '+this.state.todo.title);
-    },
-    getInitialState: function() {
-        return {data:[], date:new Date()};
-    },
-    componentWillMount: function() {
-        this.loadTodosFromServer();
+        console.log('handleTodoEditClick fired');
     },
     render: function() {
         return (
             <div>
                 <TodoForm onTodoSubmit={this.handleTodoSubmit} url="api/todo" todo={this.state.todo}/>
-                <ListTodo data={this.state.data} onEditTodoClick={this.handleTodoEditClick}/>
+                <ListTodo data={this.props.collection.models} onEditTodoClick={this.handleTodoEditClick}/>
             </div>
         );
     }
@@ -63,7 +54,7 @@ var ListTodo = React.createClass({
                 _this.props.onEditTodoClick();
             }
             return (
-                <TableRow data={[todo.id, todo.title, todo.url, todo.list, '']} onClick={editTodo}/>
+                <TableRow data={[todo.get("id"), todo.get("title"), todo.get("url"), todo.get("list"), '']} onClick={editTodo}/>
             );
         }.bind(this));
         var divStyle = {
