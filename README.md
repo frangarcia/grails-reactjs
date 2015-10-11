@@ -6,4 +6,5 @@ Interesting links:
 * http://facebook.github.io/react/docs/getting-started.html
 
 sudo npm install --global babel
+
 babel grails-app/assets/javascripts/reactjs/src/ --watch --out-dir grails-app/assets/javascripts/reactjs/build/

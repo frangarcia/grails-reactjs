@@ -25,16 +25,15 @@
             </div>
 
             <div id="content"></div>
+            <div id="modal" class="modal-container"></div>
             <div class="container-fluid">
                 <g:layoutBody/>
             </div> <!-- /container -->
         </div>
     <script src="//fb.me/react-0.14.0.js"></script>
     <script src="//fb.me/react-with-addons-0.14.0.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/react-bootstrap/0.27.1/react-bootstrap.min.js"></script>
     <asset:javascript src="application.js"/>
     <asset:javascript src="spring-websocket" />
-    <script>
-        var Alert = ReactBootstrap.Alert;
-    </script>
     </body>
 </html>

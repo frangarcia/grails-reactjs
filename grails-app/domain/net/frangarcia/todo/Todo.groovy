@@ -5,8 +5,8 @@ class Todo {
     String title
     String content
     String url
-    Date dateCreated
-    Date lastUpdated
+    Date dateCreated = new Date()
+    Date lastUpdated = new Date()
 
     static hasMany = [tags:Tag]
     static belongsTo = [todoList:TodoList]

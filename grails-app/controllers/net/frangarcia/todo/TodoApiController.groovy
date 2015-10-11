@@ -2,7 +2,7 @@ package net.frangarcia.todo
 
 import grails.rest.RestfulController
 
-class TodoApiController extends RestfulController<Todo> {
+class TodoApiController extends RestfulController {
 
     static responseFormats = ['json', 'xml']
 

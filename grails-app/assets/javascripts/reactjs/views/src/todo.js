@@ -8,6 +8,8 @@ var TodoBox = React.createClass({
     },
     componentDidMount: function(prevProps, prevState) {
         this.props.collection.fetch();
+        this.props.tags.fetch();
+        this.props.todoLists.fetch();
     },
     componentWillUnMount: function() {
         this.props.collection.forEach(function (model) {
@@ -15,19 +17,8 @@ var TodoBox = React.createClass({
         });
     },
     handleTodoSubmit: function(todo) {
-        $.ajax({
-            url: this.props.url,
-            dataType: 'json',
-            type: 'POST',
-            data: todo,
-            success: function(data) {
-                this.loadTodosFromServer();
-            }.bind(this),
-            error: function(xhr, status, err) {
-                this.loadTodosFromServer();
-                console.error(this.props.url, status, err.toString());
-            }.bind(this)
-        });
+        this.props.collection.fetch();
+        this.setState({refresh:true});
     },
     handleTodoEditClick: function() {
         console.log('handleTodoEditClick fired');
@@ -35,7 +26,7 @@ var TodoBox = React.createClass({
     render: function() {
         return (
             <div>
-                <TodoForm onTodoSubmit={this.handleTodoSubmit} url="api/todo" todo={this.state.todo}/>
+                <TodoForm onTodoSubmit={this.handleTodoSubmit} tags={app.tags} todoLists={app.todoLists}/>
                 <ListTodo data={this.props.collection.models} onEditTodoClick={this.handleTodoEditClick}/>
             </div>
         );
@@ -79,6 +70,10 @@ var TodoForm = React.createClass({
         var todo = this.props.todo || {};
         return {show:true, todo:todo};
     },
+    componentDidMount: function(prevProps, prevState) {
+        this.props.tags.fetch();
+        this.props.todoLists.fetch();
+    },
     showCreateTodo: function() {
         this.setState({show:true});
         console.log("Create todo must be shown");
@@ -88,21 +83,54 @@ var TodoForm = React.createClass({
         var title = this.refs.title.getValue().trim();
         var url = this.refs.url.getValue().trim();
         var content = this.refs.content.getValue().trim();
+        var tags = this.refs.tags.getValue();
+        var todoList = this.refs.todoList.getValue();
         if (!title || !url || !content) {
             React.render(
                 <TodoError/>,
-                document.getElementById('content')
+                document.getElementById('modal')
             );
             return;
         }
-        this.props.onTodoSubmit({title: title, content: content, url:url});
-        this.setState({show:false, title:'', url:'', content:''});
+        var newTodo = new app.models.Todo()
+        var newTodoDetails = {
+            title:title,
+            content:content,
+            url:url,
+            tags:tags,
+            todoList:todoList
+        }
+        var _this = this;
+        newTodo.save(newTodoDetails, {
+            success: function(todo) {
+                _this.setState({show:false});
+            },
+            error: function() {
+                React.render(
+                    <TodoError errorMessage="This is an error"/>,
+                    document.getElementById('modal')
+                );
+                return;
+            }
+        });
+        this.setState({show:false, todo:null});
+        this.props.onTodoSubmit();
         return;
     },
     render: function() {
         var divStyle = {
             display: this.state.show ? '' : 'none'
         };
+        var tags = this.props.tags.map(function(tag) {
+            return (
+                <option value={tag.get("id")}>{tag.get("name")}</option>
+            );
+        });
+        var todoLists = this.props.todoLists.map(function(todoList) {
+            return (
+                <option value={todoList.get("id")}>{todoList.get("name")}</option>
+            );
+        });
         return (
             <div>
                 <ReactBootstrap.Button type="button" bsStyle="primary" onClick={this.showCreateTodo}>Create todo</ReactBootstrap.Button>
@@ -110,24 +138,23 @@ var TodoForm = React.createClass({
                     <h1>Create Todo</h1>
                     <form role="form" onSubmit={this.handleSubmit}>
                         <div class="form-group">
-                            <ReactBootstrap.Input type="text" label="Title" class="form-control" ref="title" value={this.state.todo.title}/>
+                            <ReactBootstrap.Input type="text" label="Title" class="form-control" ref="title"/>
                         </div>
                         <div class="form-group">
-                            <ReactBootstrap.Input type="textarea" label="Content" class="form-control" rows="6" ref="content" value={this.state.todo.content}/>
+                            <ReactBootstrap.Input type="textarea" label="Content" class="form-control" rows="6" ref="content"/>
                         </div>
                         <div class="form-group">
-                            <ReactBootstrap.Input type="text" label="Url" class="form-control" ref="url" value={this.state.todo.url}/>
+                            <ReactBootstrap.Input type="text" label="Url" class="form-control" ref="url"/>
                         </div>
                         <div class="form-group">
                             <ReactBootstrap.Input type="select" label="List" class="form-control" ref="todoList">
                                 <option value="">Choose list</option>
-                                <option value="{{todoList.id}}"></option>
+                                {todoLists}
                             </ReactBootstrap.Input>
                         </div>
                         <div class="form-group">
-                            <ReactBootstrap.Input type="select" label="Tags" class="form-control" ref="tags">
-                                <option value="">Choose tag</option>
-                                <option value="{{todoList.id}}"></option>
+                            <ReactBootstrap.Input type="select" label="Tags" class="form-control" ref="tags" multiple>
+                                {tags}
                             </ReactBootstrap.Input>
                         </div>
                         <ReactBootstrap.Button type="submit" bsStyle="primary">Create</ReactBootstrap.Button>
@@ -139,12 +166,33 @@ var TodoForm = React.createClass({
 });
 
 var TodoError = React.createClass({
-    render: function() {
+    getInitialState() {
+        return { show: true };
+    },
+    close() {
+        this.setState({ show: false});
+    },
+    render() {
         return (
-            <p>
-                ERROR
-            </p>
+          <div className="modal-container" style={{height: 200}}>
+            <ReactBootstrap.Modal
+              show={this.state.show}
+              onHide={close}
+              container={this}
+              aria-labelledby="contained-modal-title"
+            >
+              <ReactBootstrap.Modal.Header closeButton>
+                <ReactBootstrap.Modal.Title id="contained-modal-title">Contained Modal</ReactBootstrap.Modal.Title>
+              </ReactBootstrap.Modal.Header>
+              <ReactBootstrap.Modal.Body>
+                Elit est explicabo ipsum eaque dolorem blanditiis doloribus sed id ipsam, beatae, rem fuga id earum? Inventore et facilis obcaecati.
+              </ReactBootstrap.Modal.Body>
+              <ReactBootstrap.Modal.Footer>
+                <ReactBootstrap.Button onClick={this.close}>Close</ReactBootstrap.Button>
+              </ReactBootstrap.Modal.Footer>
+            </ReactBootstrap.Modal>
+          </div>
         )
-    }
+      }
 });
 

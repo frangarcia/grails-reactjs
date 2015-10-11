@@ -566,3 +566,9 @@ a.skip {
     position: absolute;
     left: -9999px;
 }
+.modal-container {
+  position: relative;
+}
+.modal-container .modal, .modal-container .modal-backdrop {
+  position: absolute;
+}
