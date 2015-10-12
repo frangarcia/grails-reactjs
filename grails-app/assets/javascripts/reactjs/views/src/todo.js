@@ -14,19 +14,10 @@ var TodoBox = React.createClass({
             model.save();
         });
     },
-    handleTodoSubmit: function(todo) {
-        this.props.collection.fetch();
-        this.setState({refresh:true});
-    },
-    handleTodoEditClick: function() {
-        console.log('handleTodoEditClick fired');
-    },
     render: function() {
-        console.log("Rendering again");
         return (
             <div>
-                <TodoForm onTodoSubmit={this.handleTodoSubmit} tags={app.tags} todoLists={app.todoLists}/>
-                <ListTodo data={this.props.collection.models} onEditTodoClick={this.handleTodoEditClick}/>
+                <ListTodo data={this.props.collection.models}/>
             </div>
         );
     }
@@ -35,6 +26,10 @@ var TodoBox = React.createClass({
 var ListTodo = React.createClass({
     getInitialState: function() {
         return {editTodo:false};
+    },
+    handleTodoSubmit: function(todo) {
+        this.setState({refresh:true});
+        app.todos.fetch();
     },
     render: function() {
         var _this = this;
@@ -51,15 +46,18 @@ var ListTodo = React.createClass({
             display: this.state.editTodo ? '' : 'none'
         };
         return (
-            <div className="todoList">
-                <h1>List of todos</h1>
-                <ReactBootstrap.Table striped bordered condensed hover>
-                    <TableHeaderRow data={["ID","Title","URL","List",""]}/>
-                    <TableBody>
-                        {todos}
-                    </TableBody>
-                </ReactBootstrap.Table>
-            </div>
+            <div>
+                <TodoForm onTodoSubmit={this.handleTodoSubmit} tags={app.tags} todoLists={app.todoLists}/>
+                <div className="todoList">
+                    <h1>List of todos</h1>
+                    <ReactBootstrap.Table striped bordered condensed hover>
+                        <TableHeaderRow data={["ID","Title","URL","List",""]}/>
+                        <TableBody>
+                            {todos}
+                        </TableBody>
+                    </ReactBootstrap.Table>
+                </div>
+            </div>    
         )
     }
 });
@@ -103,6 +101,7 @@ var TodoForm = React.createClass({
         newTodo.save(newTodoDetails, {
             success: function(todo) {
                 _this.setState({show:false});
+                _this.props.onTodoSubmit();
             },
             error: function() {
                 React.render(
@@ -113,7 +112,6 @@ var TodoForm = React.createClass({
             }
         });
         this.setState({show:false, todo:null});
-        this.props.onTodoSubmit();
         return;
     },
     render: function() {
