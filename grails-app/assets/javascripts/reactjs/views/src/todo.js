@@ -8,8 +8,6 @@ var TodoBox = React.createClass({
     },
     componentDidMount: function(prevProps, prevState) {
         this.props.collection.fetch();
-        this.props.tags.fetch();
-        this.props.todoLists.fetch();
     },
     componentWillUnMount: function() {
         this.props.collection.forEach(function (model) {
@@ -24,6 +22,7 @@ var TodoBox = React.createClass({
         console.log('handleTodoEditClick fired');
     },
     render: function() {
+        console.log("Rendering again");
         return (
             <div>
                 <TodoForm onTodoSubmit={this.handleTodoSubmit} tags={app.tags} todoLists={app.todoLists}/>
@@ -68,7 +67,7 @@ var ListTodo = React.createClass({
 var TodoForm = React.createClass({
     getInitialState: function() {
         var todo = this.props.todo || {};
-        return {show:true, todo:todo};
+        return {show:false, todo:todo};
     },
     componentDidMount: function(prevProps, prevState) {
         this.props.tags.fetch();

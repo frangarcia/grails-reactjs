@@ -1,9 +1,11 @@
-var HomeBox = Render.createClass({
+var HomeBox = React.createClass({
     render: function() {
         return (
-            <p>
-                This is just a simple project with ReactJS and Grails 3
-            </p>
+            <div>
+                <ReactBootstrap.Panel>
+                	Just another application using Grails 3, React JS and Backbone. Do not judge the application, I am just learning something new.
+                </ReactBootstrap.Panel>	
+            </div>
         );
     }
 });

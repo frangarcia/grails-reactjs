@@ -1,6 +1,9 @@
 var TodoApp = React.createClass({
     getInitialState: function() {
-        return {current:'home'}
+        return {current:'home'};
+    },
+    componentDidMount: function(prevProps, prevState) {
+        this.showHomeBox();
     },
     showHomeBox: function() {
         this.setState({current:'home'});
