@@ -24,7 +24,7 @@
                 </div>
             </div>
 
-            <div id="content"></div>
+            
             <div id="modal" class="modal-container"></div>
             <div class="container-fluid">
                 <g:layoutBody/>

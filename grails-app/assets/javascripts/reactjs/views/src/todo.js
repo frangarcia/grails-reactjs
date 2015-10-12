@@ -1,12 +1,25 @@
 var TodoBox = React.createClass({
+    getInitialState: function() {
+        return {todos:[]};
+    },
+    render: function() {
+        return (
+            <div>
+                <ListTodo collection={app.todos}/>
+            </div>
+        );
+    }
+});
+
+var ListTodo = React.createClass({
     mixins: [app.backboneMixin],
     getBackboneCollections: function () {
         return [this.props.collection];
     },
     getInitialState: function() {
-        return {todos:[]};
+        return {editTodo:false};
     },
-    componentDidMount: function(prevProps, prevState) {
+    componentDidMount: function() {
         this.props.collection.fetch();
     },
     componentWillUnMount: function() {
@@ -14,26 +27,13 @@ var TodoBox = React.createClass({
             model.save();
         });
     },
-    render: function() {
-        return (
-            <div>
-                <ListTodo data={this.props.collection.models}/>
-            </div>
-        );
-    }
-});
-
-var ListTodo = React.createClass({
-    getInitialState: function() {
-        return {editTodo:false};
-    },
     handleTodoSubmit: function(todo) {
         this.setState({refresh:true});
-        app.todos.fetch();
+        this.props.collection.fetch();
     },
     render: function() {
         var _this = this;
-        var todos = this.props.data.map(function(todo) {
+        var todos = this.props.collection.models.map(function(todo) {
             var editTodo = function() {
                 _this.setState({editTodo:true, todo:todo});
                 _this.props.onEditTodoClick();
