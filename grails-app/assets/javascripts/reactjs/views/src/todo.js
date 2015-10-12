@@ -39,7 +39,7 @@ var ListTodo = React.createClass({
                 _this.props.onEditTodoClick();
             }
             return (
-                <TableRow data={[todo.get("id"), todo.get("title"), todo.get("url"), todo.get("list"), '']} onClick={editTodo}/>
+                <TableRow data={[todo.get("id"), todo.get("title"), todo.get("url"), todo.get("todoList").name, '']} onClick={editTodo}/>
             );
         }.bind(this));
         var divStyle = {
