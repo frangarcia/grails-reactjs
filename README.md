@@ -19,3 +19,4 @@ babel grails-app/assets/javascripts/reactjs/views/src/ --watch --out-dir grails-
 * http://mrhaki.blogspot.co.uk/2013/12/grails-goodness-rendering-partial.html
 * http://facebook.github.io/react/docs/getting-started.html
 * http://upliftingcode.com/blog/2015/06/using-backbone-models-and-collections-with-react/
+* https://github.com/Khan/style-guides/blob/master/style/react.md#do-not-use-backbone-models
