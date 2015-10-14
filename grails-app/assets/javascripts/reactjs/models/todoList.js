@@ -1,8 +1,6 @@
 app.models.TodoList = Backbone.Model.extend({
-    urlRoot: '/api/todoList',
+    url: '/api/todoList',
     defaults: {
-        name: '',
-        dateCreated: new Date(),
-        lastUpdated: new Date()
+        name: ''
     }
 });
