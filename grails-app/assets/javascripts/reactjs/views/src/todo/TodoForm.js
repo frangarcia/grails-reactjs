@@ -1,67 +1,3 @@
-var TodoBox = React.createClass({
-    getInitialState: function() {
-        return {todos:[]};
-    },
-    render: function() {
-        return (
-            <div>
-                <ListTodo collection={app.todos}/>
-            </div>
-        );
-    }
-});
-
-var ListTodo = React.createClass({
-    mixins: [app.backboneMixin],
-    getBackboneCollections: function () {
-        return [this.props.collection];
-    },
-    getInitialState: function() {
-        return {editTodo:false};
-    },
-    componentDidMount: function() {
-        this.props.collection.fetch();
-    },
-    componentWillUnMount: function() {
-        this.props.collection.forEach(function (model) {
-            model.save();
-        });
-    },
-    handleTodoSubmit: function(todo) {
-        this.setState({refresh:true});
-        this.props.collection.fetch();
-    },
-    render: function() {
-        var _this = this;
-        var todos = this.props.collection.models.map(function(todo) {
-            var editTodo = function() {
-                _this.setState({editTodo:true, todo:todo});
-                _this.props.onEditTodoClick();
-            }
-            return (
-                <TableRow data={[todo.get("id"), todo.get("title"), todo.get("url"), todo.get("todoList").name, '']} onClick={editTodo}/>
-            );
-        }.bind(this));
-        var divStyle = {
-            display: this.state.editTodo ? '' : 'none'
-        };
-        return (
-            <div>
-                <TodoForm onTodoSubmit={this.handleTodoSubmit} tags={app.tags} todoLists={app.todoLists}/>
-                <div className="todoList">
-                    <h1>List of todos</h1>
-                    <ReactBootstrap.Table striped bordered condensed hover>
-                        <TableHeaderRow data={["ID","Title","URL","List",""]}/>
-                        <TableBody>
-                            {todos}
-                        </TableBody>
-                    </ReactBootstrap.Table>
-                </div>
-            </div>    
-        )
-    }
-});
-
 var TodoForm = React.createClass({
     getInitialState: function() {
         var todo = this.props.todo || {};
@@ -120,12 +56,12 @@ var TodoForm = React.createClass({
         };
         var tags = this.props.tags.map(function(tag) {
             return (
-                <option value={tag.get("id")}>{tag.get("name")}</option>
+                <option key={tag.get("id")} value={tag.get("id")}>{tag.get("name")}</option>
             );
         });
         var todoLists = this.props.todoLists.map(function(todoList) {
             return (
-                <option value={todoList.get("id")}>{todoList.get("name")}</option>
+                <option key={todoList.get("id")} value={todoList.get("id")}>{todoList.get("name")}</option>
             );
         });
         return (
@@ -161,35 +97,3 @@ var TodoForm = React.createClass({
         );
     }
 });
-
-var TodoError = React.createClass({
-    getInitialState() {
-        return { show: true };
-    },
-    close() {
-        this.setState({ show: false});
-    },
-    render() {
-        return (
-          <div className="modal-container" style={{height: 200}}>
-            <ReactBootstrap.Modal
-              show={this.state.show}
-              onHide={close}
-              container={this}
-              aria-labelledby="contained-modal-title"
-            >
-              <ReactBootstrap.Modal.Header closeButton>
-                <ReactBootstrap.Modal.Title id="contained-modal-title">Contained Modal</ReactBootstrap.Modal.Title>
-              </ReactBootstrap.Modal.Header>
-              <ReactBootstrap.Modal.Body>
-                Elit est explicabo ipsum eaque dolorem blanditiis doloribus sed id ipsam, beatae, rem fuga id earum? Inventore et facilis obcaecati.
-              </ReactBootstrap.Modal.Body>
-              <ReactBootstrap.Modal.Footer>
-                <ReactBootstrap.Button onClick={this.close}>Close</ReactBootstrap.Button>
-              </ReactBootstrap.Modal.Footer>
-            </ReactBootstrap.Modal>
-          </div>
-        )
-      }
-});
-
