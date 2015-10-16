@@ -1,5 +1,5 @@
 app.models.Tag = Backbone.Model.extend({
-    url: '/api/tag',
+    urlRoot: '/api/tag',
     defaults: {
         name: ''
     }

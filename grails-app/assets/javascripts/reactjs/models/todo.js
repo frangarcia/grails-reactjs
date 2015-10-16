@@ -1,5 +1,5 @@
 app.models.Todo = Backbone.Model.extend({
-    url: '/api/todo',
+    urlRoot: '/api/todo',
     defaults: {
         title: '',
         content: '',
