@@ -19,9 +19,7 @@ var ListTag = React.createClass({
         this.props.collection.fetch();
     },
     handleEditTagClick: function(tag) {
-        console.log("handleEditTagClick for sure "+tag.get("id"));
         this.setState({tag:tag, editTag:true});
-        console.log("Setting this.state.tag = "+this.state.tag);
     },
     render: function() {
         var _this = this;
@@ -36,7 +34,6 @@ var ListTag = React.createClass({
         var divStyle = {
             display: this.state.editTag ? '' : 'none'
         };
-        console.log("Rendering again with this.state.tag = "+this.state.tag);
         return (
             <div>
                 <TagForm onTagSubmit={this.handleTagSubmit} tag={this.state.tag}/>

@@ -3,10 +3,8 @@ var TagForm = React.createClass({
         return {show:false};
     },
     componentDidMount: function(prevProps, prevState) {
-        console.log("componentDidMount from tagform.js");
     },
     componentWillUnMount: function() {
-        console.log("componentWillUnMount from tagform.js");
     },
     showCreateTag: function() {
         this.setState({show:true});
@@ -76,6 +74,9 @@ var TagForm = React.createClass({
     onChange: function() {
         this.props.tag.set({name:this.refs.name.getValue()});
     },
+    cancelForm: function() {
+        this.setState({show:false});
+    },
     render: function() {
         var divStyle = {
             display: this.state.show || this.props.tag ? '' : 'none'
@@ -89,6 +90,7 @@ var TagForm = React.createClass({
                         <div class="form-group">
                             <ReactBootstrap.Input type="text" label="Name" className="form-control" ref="name" value={this.props.tag ? this.props.tag.get("name") : ''} onChange={this.onChange}/>
                         </div>
+                        <ReactBootstrap.Button type="button" bsStyle="warning" onClick={this.cancelForm}>Cancel</ReactBootstrap.Button>&nbsp;
                         <ReactBootstrap.Button type="submit" bsStyle="primary">{this.props.tag ? 'Edit' : 'Create'}</ReactBootstrap.Button>
                     </form>
                 </div>
