@@ -4,7 +4,7 @@ var ListTag = React.createClass({
         return [this.props.collection];
     },
     getInitialState: function() {
-        return {editTag:false};
+        return {};
     },
     componentDidMount: function() {
         this.props.collection.fetch();
@@ -19,21 +19,18 @@ var ListTag = React.createClass({
         this.props.collection.fetch();
     },
     handleEditTagClick: function(tag) {
-        this.setState({tag:tag, editTag:true});
+        this.setState({tag:tag});
     },
     render: function() {
         var _this = this;
         var tags = this.props.collection.models.map(function(tag) {
-            var editTag = function() {
+            var editTagHandler = function() {
                 _this.handleEditTagClick(tag);
             }
             return (
-                <TableRow key={tag.get("id")} data={[tag.get("id"), tag.get("name"), '']} onClick={editTag}/>
+                <TableRow key={tag.get("id")} data={[tag.get("id"), tag.get("name"), '']} onClick={editTagHandler}/>
             );
         });
-        var divStyle = {
-            display: this.state.editTag ? '' : 'none'
-        };
         return (
             <div>
                 <TagForm onTagSubmit={this.handleTagSubmit} tag={this.state.tag}/>
