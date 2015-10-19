@@ -81,13 +81,14 @@ var TagForm = React.createClass({
         var divStyle = {
             display: this.state.show || this.props.tag ? '' : 'none'
         };
+        console.log("Rendering tag form");
         return (
             <div>
                 <ReactBootstrap.Button type="button" bsStyle="primary" onClick={this.showCreateTag}>Create tag</ReactBootstrap.Button>
                 <div style={divStyle}>
                     <h1>{this.props.tag ? 'Edit' : 'Create'} Tag</h1>
                     <form role="form" onSubmit={this.props.tag ? this.handleEditSubmit : this.handleSubmit}>
-                        <div class="form-group">
+                        <div className="form-group">
                             <ReactBootstrap.Input type="text" label="Name" className="form-control" ref="name" value={this.props.tag ? this.props.tag.get("name") : ''} onChange={this.onChange}/>
                         </div>
                         <ReactBootstrap.Button type="button" bsStyle="warning" onClick={this.cancelForm}>Cancel</ReactBootstrap.Button>&nbsp;
