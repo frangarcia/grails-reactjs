@@ -4,7 +4,7 @@ var ListTodo = React.createClass({
         return [this.props.collection];
     },
     getInitialState: function() {
-        return {editTodo:false};
+        return {};
     },
     componentDidMount: function() {
         this.props.collection.fetch();
@@ -15,26 +15,53 @@ var ListTodo = React.createClass({
         });
     },
     handleTodoSubmit: function(todo) {
-        this.setState({refresh:true});
+        this.setState({refresh:true, todo:null});
         this.props.collection.fetch();
+    },
+    handleEditTodoClick: function(todo) {
+        console.log("handleEditTodoClick"+todo);
+        this.setState({todo:todo});
+    },
+    handleDeleteTodoClick: function(todo) {
+        var _this = this;
+        todo.destroy({
+            success: function(model, response) {
+                console.log("Todo "+todo+" deleted successfully");
+            },
+            error: function(model, response) {
+                console.log("ERROR deleting todo "+todo);
+                _this.props.collection.fetch();
+            }
+        });
+    },
+    handleCancelForm: function() {
+        console.log("cancelling form");
+        this.setState({todo:null});
     },
     render: function() {
         var _this = this;
         var todos = this.props.collection.models.map(function(todo) {
-            var editTodo = function() {
-                _this.setState({editTodo:true, todo:todo});
-                _this.props.onEditTodoClick();
+            var editTodoHandler = function() {
+                _this.handleEditTodoClick(todo);
+            }
+            var deleteTodoHandler = function() {
+                _this.handleDeleteTodoClick(todo);
+            }
+            var actionButtons = function() {
+                return (
+                    <span>
+                        <ReactBootstrap.Button type="button" bsStyle="primary" onClick={editTodoHandler}>Edit</ReactBootstrap.Button>&nbsp;
+                        <ReactBootstrap.Button type="button" bsStyle="warning" onClick={deleteTodoHandler}>Delete</ReactBootstrap.Button>
+                    </span>    
+                )
             }
             return (
-                <TableRow key={todo.get("id")} data={[todo.get("id"), todo.get("title"), todo.get("url"), todo.get("todoList").name, '']} onClick={editTodo}/>
+                <TableRow key={todo.get("id")} data={[todo.get("id"), todo.get("title"), todo.get("url"), todo.get("todoList").name, actionButtons()]}/>
             );
-        }.bind(this));
-        var divStyle = {
-            display: this.state.editTodo ? '' : 'none'
-        };
+        });
         return (
             <div>
-                <TodoForm onTodoSubmit={this.handleTodoSubmit} tags={app.tags} todoLists={app.todoLists}/>
+                <TodoForm onTodoSubmit={this.handleTodoSubmit} tags={app.tags} todoLists={app.todoLists} todo={this.state.todo} cancelForm={this.handleCancelForm}/>
                 <div className="todoList">
                     <h1>List of todos</h1>
                     <ReactBootstrap.Table striped bordered condensed hover>
