@@ -75,13 +75,21 @@ var TagForm = React.createClass({
         this.props.tag.set({name:this.refs.name.getValue()});
     },
     cancelForm: function() {
+        this.props.cancelForm();
         this.setState({show:false});
     },
     render: function() {
+        var input
+        if (this.props.tag) {
+            input = <ReactBootstrap.Input type="text" label="Name" className="form-control" ref="name" value={this.props.tag.get("name")} onChange={this.onChange}/>
+        } else {
+            input = <ReactBootstrap.Input type="text" label="Name" className="form-control" ref="name"/>
+        }
+
         var divStyle = {
             display: this.state.show || this.props.tag ? '' : 'none'
         };
-        console.log("Rendering tag form");
+
         return (
             <div>
                 <ReactBootstrap.Button type="button" bsStyle="primary" onClick={this.showCreateTag}>Create tag</ReactBootstrap.Button>
@@ -89,7 +97,7 @@ var TagForm = React.createClass({
                     <h1>{this.props.tag ? 'Edit' : 'Create'} Tag</h1>
                     <form role="form" onSubmit={this.props.tag ? this.handleEditSubmit : this.handleSubmit}>
                         <div className="form-group">
-                            <ReactBootstrap.Input type="text" label="Name" className="form-control" ref="name" value={this.props.tag ? this.props.tag.get("name") : ''} onChange={this.onChange}/>
+                            {input}
                         </div>
                         <ReactBootstrap.Button type="button" bsStyle="warning" onClick={this.cancelForm}>Cancel</ReactBootstrap.Button>&nbsp;
                         <ReactBootstrap.Button type="submit" bsStyle="primary">{this.props.tag ? 'Edit' : 'Create'}</ReactBootstrap.Button>

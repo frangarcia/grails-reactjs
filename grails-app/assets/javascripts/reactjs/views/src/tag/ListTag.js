@@ -33,6 +33,10 @@ var ListTag = React.createClass({
             }
         });
     },
+    handleCancelForm: function() {
+        console.log("cancelling form");
+        this.setState({tag:null});
+    },
     render: function() {
         var _this = this;
         var tags = this.props.collection.models.map(function(tag) {
@@ -56,7 +60,7 @@ var ListTag = React.createClass({
         });
         return (
             <div>
-                <TagForm onTagSubmit={this.handleTagSubmit} tag={this.state.tag}/>
+                <TagForm onTagSubmit={this.handleTagSubmit} tag={this.state.tag} cancelForm={this.handleCancelForm}/>
                 <h1>List of tags</h1>
                 <ReactBootstrap.Table striped bordered condensed hover>
                     <TableHeaderRow data={["ID","Name",""]}/>
