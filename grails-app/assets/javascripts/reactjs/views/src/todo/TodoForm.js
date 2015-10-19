@@ -103,17 +103,32 @@ var TodoForm = React.createClass({
         this.setState({show:false});
     },
     render: function() {
+        var _this = this;
         var tags = this.props.tags.map(function(tag) {
-            return (
-                <option key={tag.get("id")} value={tag.get("id")}>{tag.get("name")}</option>
-            );
+            if (_this.props.todo && _this.props.todo.get("tags") && tag.get("id")==_this.props.todo.get("tags").id) {
+                return (
+                    <option key={tag.get("id")} value={tag.get("id")}>{tag.get("name")}</option>
+                );
+            } else {
+                return (
+                    <option key={tag.get("id")} value={tag.get("id")}>{tag.get("name")}</option>
+                );
+            }
+            
         });
         var todoLists = this.props.todoLists.map(function(todoList) {
-            return (
-                <option key={todoList.get("id")} value={todoList.get("id")}>{todoList.get("name")}</option>
-            );
+            if (_this.props.todo && _this.props.todo.get("todoList") && todoList.get("id")==_this.props.todo.get("todoList").id) {
+                return (
+                    <option key={todoList.get("id")} value={todoList.get("id")} selected>{todoList.get("name")}</option>
+                );
+            } else {
+                return (
+                    <option key={todoList.get("id")} value={todoList.get("id")}>{todoList.get("name")}</option>
+                );
+            }
+            
         });
-        var inputTitle, inputContent, inputUrl
+        var inputTitle, inputContent, inputUrl, inputTodoList
         if (this.props.todo) {
             inputTitle = <ReactBootstrap.Input type="text" label="Title" className="form-control" ref="title" value={this.props.todo.get("title")} onChange={this.onChange}/>
             inputContent = <ReactBootstrap.Input type="textarea" label="Content" className="form-control" ref="content" value={this.props.todo.get("content")} onChange={this.onChange}/>
