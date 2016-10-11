@@ -18,7 +18,7 @@
         <script src="//unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
         <script src="//unpkg.com/jquery@3.1.0/dist/jquery.min.js"></script>
         <script src="//unpkg.com/remarkable@1.7.1/dist/remarkable.min.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/react-bootstrap/0.27.1/react-bootstrap.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/react-bootstrap/0.30.5/react-bootstrap.min.js"></script>
         <g:layoutHead/>
     </head>
     <body>
