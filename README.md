@@ -7,7 +7,7 @@ The purpose of this app is basically to test new capabilities of Grails 3 and th
 ```
 curl -s api.sdkman.io | bash
 
-sdk grails install 3.1.0.M1
+sdk grails install 3.2.0
 
 sudo npm install --global babel
 

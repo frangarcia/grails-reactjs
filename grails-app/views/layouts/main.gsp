@@ -13,6 +13,12 @@
         <link rel="apple-touch-icon" href="${assetPath(src: 'apple-touch-icon.png')}">
         <link rel="apple-touch-icon" sizes="114x114" href="${assetPath(src: 'apple-touch-icon-retina.png')}">
         <asset:stylesheet src="application.css"/>
+        <script src="//unpkg.com/react@15.3.2/dist/react.js"></script>
+        <script src="//unpkg.com/react-dom@15.3.2/dist/react-dom.js"></script>
+        <script src="//unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+        <script src="//unpkg.com/jquery@3.1.0/dist/jquery.min.js"></script>
+        <script src="//unpkg.com/remarkable@1.7.1/dist/remarkable.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/react-bootstrap/0.27.1/react-bootstrap.min.js"></script>
         <g:layoutHead/>
     </head>
     <body>
@@ -24,16 +30,12 @@
                 </div>
             </div>
 
-            
+
             <div id="modal" class="modal-container"></div>
             <div class="container-fluid">
                 <g:layoutBody/>
             </div> <!-- /container -->
         </div>
-    <script src="//fb.me/react-0.14.0.js"></script>
-    <script src="//fb.me/react-with-addons-0.14.0.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/react-bootstrap/0.27.1/react-bootstrap.min.js"></script>
     <asset:javascript src="application.js"/>
-    <asset:javascript src="spring-websocket" />
     </body>
 </html>
