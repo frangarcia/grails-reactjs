@@ -13,7 +13,6 @@
         <link rel="apple-touch-icon" href="${assetPath(src: 'apple-touch-icon.png')}">
         <link rel="apple-touch-icon" sizes="114x114" href="${assetPath(src: 'apple-touch-icon-retina.png')}">
         <asset:stylesheet src="application.css"/>
-        <script src="//unpkg.com/jquery@3.1.0/dist/jquery.min.js"></script>
         <g:layoutHead/>
     </head>
     <body>
