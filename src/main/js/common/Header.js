@@ -21,21 +21,21 @@ var Header = React.createClass({
     },
 	showTodoBox: function() {
         this.setState({current:'todo'});
-        React.render(
+		ReactDOM.render(
             <TodoBox/>,
             document.getElementById('content')
         );
     },
     showTagBox: function() {
         this.setState({current:'tag'});
-        React.render(
+		ReactDOM.render(
             <TagBox collection={app.tags}/>,
             document.getElementById('content')
         );
     },
     showTodoListBox: function() {
         this.setState({current:'todoList'});
-        React.render(
+		ReactDOM.render(
             <TodoListBox collection={app.todoLists}/>,
             document.getElementById('content')
         );
@@ -45,7 +45,6 @@ var Header = React.createClass({
 			<div>
 		        <div className="navbar-header">
 	                <button type="button" className="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-	                    <span className="sr-only">Toggle navigation</span>
 	                    <span className="icon-bar"></span>
 	                    <span className="icon-bar"></span>
 	                    <span className="icon-bar"></span>

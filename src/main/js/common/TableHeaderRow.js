@@ -19,4 +19,4 @@ var TableHeaderRow = React.createClass({
     }
 });
 
-export default TableHeaderCell;
+export default TableHeaderRow;

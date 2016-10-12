@@ -31,3 +31,5 @@ var TodoError = React.createClass({
       }
 });
 
+export default TodoError;
+
