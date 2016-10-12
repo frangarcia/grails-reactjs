@@ -10,3 +10,4 @@ var TagError = React.createClass({
     }
 });
 
+export default TagError;

@@ -3,6 +3,7 @@ import ListTodoList from './ListTodoList'
 
 var TodoListBox = React.createClass({
     getInitialState: function() {
+        console.log("getInitialState for TodoListBox");
         return {todoLists:[]};
     },
     render: function() {

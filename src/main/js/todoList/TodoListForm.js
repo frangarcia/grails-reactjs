@@ -1,4 +1,6 @@
 import React from 'react';
+import * as ReactBootstrap from 'react-bootstrap';
+import TodoListError from './TodoListError';
 
 var TodoListForm = React.createClass({
     getInitialState: function() {
@@ -42,6 +44,12 @@ var TodoListForm = React.createClass({
         return;
     },
     render: function() {
+        var input
+        if (this.props.todoList) {
+            input = <ReactBootstrap.FormControl type="text" label="Name" className="form-control" ref="name" value={this.props.todoList.get("name")} onChange={this.onChange}/>
+        } else {
+            input = <ReactBootstrap.FormControl type="text" label="Name" className="form-control" ref="name"/>
+        }
         var divStyle = {
             display: this.state.show ? '' : 'none'
         };
@@ -49,15 +57,18 @@ var TodoListForm = React.createClass({
             <div>
                 <ReactBootstrap.Button type="button" bsStyle="primary" onClick={this.showCreateTodoList}>Create todo list</ReactBootstrap.Button>
                 <div style={divStyle}>
-                    <h1>Create Todo List</h1>
-                    <form role="form" onSubmit={this.handleSubmit}>
-                        <div class="form-group">
-                            <ReactBootstrap.Input type="text" label="Name" class="form-control" ref="name"/>
+                    <h1>{this.props.tag ? 'Edit' : 'Create'} Todo List</h1>
+                    <form role="form" onSubmit={this.props.todoList ? this.handleEditSubmit : this.handleSubmit}>
+                        <div className="form-group">
+                            {input}
                         </div>
-                        <ReactBootstrap.Button type="submit" bsStyle="primary">Create</ReactBootstrap.Button>
+                        <ReactBootstrap.Button type="button" bsStyle="warning" onClick={this.cancelForm}>Cancel</ReactBootstrap.Button>&nbsp;
+                        <ReactBootstrap.Button type="submit" bsStyle="primary">{this.props.todoList ? 'Edit' : 'Create'}</ReactBootstrap.Button>
                     </form>
                 </div>
             </div>
         );
     }
 });
+
+export default TodoListForm;
