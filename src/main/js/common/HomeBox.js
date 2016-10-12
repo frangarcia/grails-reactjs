@@ -1,3 +1,6 @@
+import React from 'react';
+import * as ReactBootstrap from 'react-bootstrap';
+
 var HomeBox = React.createClass({
     render: function() {
         return (
