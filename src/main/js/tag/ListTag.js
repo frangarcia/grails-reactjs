@@ -1,4 +1,9 @@
 import React from 'react';
+import TagForm from './TagForm';
+import TableHeaderRow from '../common/TableHeaderRow';
+import TableBody from '../common/TableBody';
+import TableRow from '../common/TableRow';
+import * as ReactBootstrap from 'react-bootstrap';
 
 var ListTag = React.createClass({
     mixins: [app.backboneMixin],
@@ -63,14 +68,18 @@ var ListTag = React.createClass({
         return (
             <div>
                 <TagForm onTagSubmit={this.handleTagSubmit} tag={this.state.tag} cancelForm={this.handleCancelForm}/>
-                <h1>List of tags</h1>
-                <ReactBootstrap.Table striped bordered condensed hover>
-                    <TableHeaderRow data={["ID","Name",""]}/>
-                    <TableBody>
-                        {tags}
-                    </TableBody>
-                </ReactBootstrap.Table>
+                <div className="tagList">
+                    <h1>List of tags</h1>
+                    <ReactBootstrap.Table striped bordered condensed hover>
+                        <TableHeaderRow data={["ID","Name",""]}/>
+                        <TableBody>
+                            {tags}
+                        </TableBody>
+                    </ReactBootstrap.Table>
+                </div>
             </div>
         )
     }
 });
+
+export default ListTag;

@@ -1,4 +1,6 @@
 import React from 'react';
+import * as ReactBootstrap from 'react-bootstrap';
+import TagError from './TagError';
 
 var TagForm = React.createClass({
     getInitialState: function() {
@@ -16,7 +18,7 @@ var TagForm = React.createClass({
         var name = this.refs.name.getValue().trim();
         if (!name) {
             React.render(
-                <TodoError/>,
+                <TagError/>,
                 document.getElementById('modal')
             );
             return;
@@ -33,7 +35,7 @@ var TagForm = React.createClass({
             },
             error: function() {
                 React.render(
-                    <TodoError errorMessage="This is an error"/>,
+                    <TagError errorMessage="This is an error"/>,
                     document.getElementById('modal')
                 );
                 return;
@@ -47,7 +49,7 @@ var TagForm = React.createClass({
         var name = this.refs.name.getValue().trim();
         if (!name) {
             React.render(
-                <TodoError/>,
+                <TagError/>,
                 document.getElementById('modal')
             );
             return;
@@ -83,9 +85,9 @@ var TagForm = React.createClass({
     render: function() {
         var input
         if (this.props.tag) {
-            input = <ReactBootstrap.Input type="text" label="Name" className="form-control" ref="name" value={this.props.tag.get("name")} onChange={this.onChange}/>
+            input = <ReactBootstrap.FormControl type="text" label="Name" className="form-control" ref="name" value={this.props.tag.get("name")} onChange={this.onChange}/>
         } else {
-            input = <ReactBootstrap.Input type="text" label="Name" className="form-control" ref="name"/>
+            input = <ReactBootstrap.FormControl type="text" label="Name" className="form-control" ref="name"/>
         }
 
         var divStyle = {
@@ -109,3 +111,5 @@ var TagForm = React.createClass({
         );
     }
 });
+
+export default TagForm;

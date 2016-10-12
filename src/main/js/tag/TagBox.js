@@ -3,6 +3,7 @@ import ListTag from './ListTag'
 
 var TagBox = React.createClass({
     getInitialState: function() {
+        console.log("getInitialState for TagBox");
         return {tags:[]};
     },
     render: function() {
@@ -14,4 +15,4 @@ var TagBox = React.createClass({
     }
 });
 
-export default ListTag;
+export default TagBox;
