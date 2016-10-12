@@ -44,11 +44,6 @@ var Header = React.createClass({
 		return (
 			<div>
 		        <div className="navbar-header">
-	                <button type="button" className="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-	                    <span className="icon-bar"></span>
-	                    <span className="icon-bar"></span>
-	                    <span className="icon-bar"></span>
-	                </button>
 	                <span className="navbar-brand"><a onClick={this.showHomeBox}>Grails-ReactJS TODO App</a></span>
 	            </div>
 				<div className="navbar-collapse collapse">
