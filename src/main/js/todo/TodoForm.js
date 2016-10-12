@@ -134,13 +134,13 @@ var TodoForm = React.createClass({
         });
         var inputTitle, inputContent, inputUrl, inputTodoList
         if (this.props.todo) {
-            inputTitle = <ReactBootstrap.Input type="text" label="Title" className="form-control" ref="title" value={this.props.todo.get("title")} onChange={this.onChange}/>
-            inputContent = <ReactBootstrap.Input type="textarea" label="Content" className="form-control" ref="content" value={this.props.todo.get("content")} onChange={this.onChange}/>
-            inputUrl = <ReactBootstrap.Input type="text" label="Url" className="form-control" ref="url" value={this.props.todo.get("url")} onChange={this.onChange}/>
+            inputTitle = <ReactBootstrap.FormControl type="text" label="Title" className="form-control" ref="title" value={this.props.todo.get("title")} onChange={this.onChange}/>
+            inputContent = <ReactBootstrap.FormControl type="textarea" label="Content" className="form-control" ref="content" value={this.props.todo.get("content")} onChange={this.onChange}/>
+            inputUrl = <ReactBootstrap.FormControl type="text" label="Url" className="form-control" ref="url" value={this.props.todo.get("url")} onChange={this.onChange}/>
         } else {
-            inputTitle = <ReactBootstrap.Input type="text" label="Title" className="form-control" ref="title"/>
-            inputContent = <ReactBootstrap.Input type="textarea" label="Content" className="form-control" ref="content"/>
-            inputUrl = <ReactBootstrap.Input type="text" label="Url" className="form-control" ref="url"/>
+            inputTitle = <ReactBootstrap.FormControl type="text" label="Title" className="form-control" ref="title"/>
+            inputContent = <ReactBootstrap.FormControl type="textarea" label="Content" className="form-control" ref="content"/>
+            inputUrl = <ReactBootstrap.FormControl type="text" label="Url" className="form-control" ref="url"/>
         }
 
         var divStyle = {
@@ -162,15 +162,15 @@ var TodoForm = React.createClass({
                             {inputUrl}
                         </div>
                         <div className="form-group">
-                            <ReactBootstrap.Input type="select" label="List" className="form-control" ref="todoList">
+                            <ReactBootstrap.FormControl componentClass="select" label="List" className="form-control" ref="todoList" multiple>
                                 <option value="">Choose list</option>
                                 {todoLists}
-                            </ReactBootstrap.Input>
+                            </ReactBootstrap.FormControl>
                         </div>
                         <div className="form-group">
-                            <ReactBootstrap.Input type="select" label="Tags" className="form-control" ref="tags" multiple>
+                            <ReactBootstrap.FormControl componentClass="select" label="Tags" className="form-control" ref="tags" multiple>
                                 {tags}
-                            </ReactBootstrap.Input>
+                            </ReactBootstrap.FormControl>
                         </div>
                         <ReactBootstrap.Button type="button" bsStyle="warning" onClick={this.cancelForm}>Cancel</ReactBootstrap.Button>&nbsp;
                         <ReactBootstrap.Button type="submit" bsStyle="primary">{this.props.todo ? 'Edit' : 'Create'}</ReactBootstrap.Button>
