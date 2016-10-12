@@ -1,3 +1,5 @@
+import React from 'react';
+
 var ListTag = React.createClass({
     mixins: [app.backboneMixin],
     getBackboneCollections: function () {
@@ -51,7 +53,7 @@ var ListTag = React.createClass({
                     <span>
                         <ReactBootstrap.Button type="button" bsStyle="primary" onClick={editTagHandler}>Edit</ReactBootstrap.Button>&nbsp;
                         <ReactBootstrap.Button type="button" bsStyle="warning" onClick={deleteTagHandler}>Delete</ReactBootstrap.Button>
-                    </span>    
+                    </span>
                 )
             }
             return (

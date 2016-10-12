@@ -1,3 +1,5 @@
+import React from 'react';
+
 var TodoError = React.createClass({
     getInitialState() {
         return { show: true };

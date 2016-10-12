@@ -1,3 +1,4 @@
+import React from 'react';
 import TableCell from './TableCell'
 
 var TableRow = React.createClass({

@@ -1,3 +1,5 @@
+import React from 'react';
+
 var TableBody = React.createClass({
     render: function() {
         return (

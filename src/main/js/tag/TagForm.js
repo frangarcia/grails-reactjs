@@ -1,3 +1,5 @@
+import React from 'react';
+
 var TagForm = React.createClass({
     getInitialState: function() {
         return {show:false};

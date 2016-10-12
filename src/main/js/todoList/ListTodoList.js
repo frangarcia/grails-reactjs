@@ -1,3 +1,5 @@
+import React from 'react';
+
 var ListTodoList = React.createClass({
     mixins: [app.backboneMixin],
     getBackboneCollections: function () {

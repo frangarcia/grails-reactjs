@@ -1,3 +1,5 @@
+import React from 'react';
+
 var ListTodo = React.createClass({
     mixins: [app.backboneMixin],
     getBackboneCollections: function () {
@@ -52,7 +54,7 @@ var ListTodo = React.createClass({
                     <span>
                         <ReactBootstrap.Button type="button" bsStyle="primary" onClick={editTodoHandler}>Edit</ReactBootstrap.Button>&nbsp;
                         <ReactBootstrap.Button type="button" bsStyle="warning" onClick={deleteTodoHandler}>Delete</ReactBootstrap.Button>
-                    </span>    
+                    </span>
                 )
             }
             return (
@@ -71,7 +73,7 @@ var ListTodo = React.createClass({
                         </TableBody>
                     </ReactBootstrap.Table>
                 </div>
-            </div>    
+            </div>
         )
     }
 });

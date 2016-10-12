@@ -1,3 +1,4 @@
+import React from 'react';
 import ListTag from './ListTag'
 
 var TagBox = React.createClass({

@@ -1,3 +1,5 @@
+import React from 'react';
+
 var TodoForm = React.createClass({
     getInitialState: function() {
         var todo = this.props.todo || {};
@@ -88,7 +90,7 @@ var TodoForm = React.createClass({
         });
         this.setState({show:false});
         return;
-    },    
+    },
     onChange: function() {
         this.props.todo.set(
             {
@@ -114,7 +116,7 @@ var TodoForm = React.createClass({
                     <option key={tag.get("id")} value={tag.get("id")}>{tag.get("name")}</option>
                 );
             }
-            
+
         });
         var todoLists = this.props.todoLists.map(function(todoList) {
             if (_this.props.todo && _this.props.todo.get("todoList") && todoList.get("id")==_this.props.todo.get("todoList").id) {
@@ -126,7 +128,7 @@ var TodoForm = React.createClass({
                     <option key={todoList.get("id")} value={todoList.get("id")}>{todoList.get("name")}</option>
                 );
             }
-            
+
         });
         var inputTitle, inputContent, inputUrl, inputTodoList
         if (this.props.todo) {

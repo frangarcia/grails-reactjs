@@ -1,3 +1,5 @@
+import React from 'react';
+
 var TableCell = React.createClass({
     render: function() {
         return (
