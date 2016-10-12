@@ -1,3 +1,5 @@
+import ListTag from './ListTag'
+
 var TagBox = React.createClass({
     getInitialState: function() {
         return {tags:[]};
@@ -10,3 +12,5 @@ var TagBox = React.createClass({
         );
     }
 });
+
+export default ListTag;

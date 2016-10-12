@@ -1,3 +1,5 @@
+import ListTodo from './ListTodo'
+
 var TodoBox = React.createClass({
     getInitialState: function() {
         return {todos:[]};
@@ -10,3 +12,5 @@ var TodoBox = React.createClass({
         );
     }
 });
+
+export default TodoBox;

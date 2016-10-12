@@ -11,7 +11,9 @@ sdk grails install 3.2.0
 
 sudo npm install --global babel
 
-babel grails-app/assets/javascripts/reactjs/views/src/ --watch --out-dir grails-app/assets/javascripts/reactjs/views/build/
+npm install
+
+npm run bundle
 ```
 
 ## Interesting links:
@@ -20,3 +22,4 @@ babel grails-app/assets/javascripts/reactjs/views/src/ --watch --out-dir grails-
 * http://facebook.github.io/react/docs/getting-started.html
 * http://upliftingcode.com/blog/2015/06/using-backbone-models-and-collections-with-react/
 * https://github.com/Khan/style-guides/blob/master/style/react.md#do-not-use-backbone-models
+* https://www.ociweb.com/resources/publications/sett/june-2016-using-react-with-grails/

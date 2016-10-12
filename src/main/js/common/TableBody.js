@@ -7,3 +7,5 @@ var TableBody = React.createClass({
         )
     }
 });
+
+export default TableBody;

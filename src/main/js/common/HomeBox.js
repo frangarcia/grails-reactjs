@@ -4,8 +4,10 @@ var HomeBox = React.createClass({
             <div>
                 <ReactBootstrap.Panel>
                 	Just another application using Grails 3, React JS and Backbone. Do not judge the application, I am just learning something new.
-                </ReactBootstrap.Panel>	
+                </ReactBootstrap.Panel>
             </div>
         );
     }
 });
+
+export default HomeBox;

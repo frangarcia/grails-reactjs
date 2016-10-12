@@ -11,8 +11,7 @@ if (typeof jQuery !== 'undefined') {
 //= require reactjs/App.js
 //= require_tree reactjs/models
 //= require_tree reactjs/collections
-//= require_tree reactjs/views/build/common
-//= require_tree reactjs/views/build
+//= require bundle.js
 //= require_self
 //= require /webjars/bootstrap/3.3.5/js/bootstrap.min
 //= require /webjars/bootstrap-tagsinput/0.5/bootstrap-tagsinput

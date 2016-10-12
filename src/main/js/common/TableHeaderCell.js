@@ -5,3 +5,5 @@ var TableHeaderCell = React.createClass({
         );
     }
 });
+
+export default TableHeaderCell;

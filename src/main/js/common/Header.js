@@ -1,13 +1,18 @@
+import HomeBox from './HomeBox'
+import TodoBox from '../todo/TodoBox'
+import TagBox from '../tag/TagBox'
+import TodoListBox from '../todoList/TodoListBox'
+
 var Header = React.createClass({
     getInitialState: function() {
         return {current:'home'};
     },
     componentDidMount: function() {
         this.showHomeBox();
-    },	
+    },
 	showHomeBox: function() {
         this.setState({current:'home'});
-        React.render(
+        ReactDOM.render(
             <HomeBox/>,
             document.getElementById('content')
         );
@@ -52,7 +57,9 @@ var Header = React.createClass({
 	                    <li className={ this.state.current=='todoList' ? 'active' : '' }><a onClick={this.showTodoListBox}>Todo Lists</a></li>
 	                </ul>
 	            </div>
-	        </div>    
+	        </div>
 		)
 	}
 });
+
+export default Header;

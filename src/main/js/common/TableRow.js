@@ -1,3 +1,5 @@
+import TableCell from './TableCell'
+
 var TableRow = React.createClass({
     render: function() {
         var i = 1;
@@ -13,3 +15,5 @@ var TableRow = React.createClass({
         );
     }
 });
+
+export default TableRow;

@@ -5,3 +5,5 @@ var TableCell = React.createClass({
         );
     }
 });
+
+export default TableCell;

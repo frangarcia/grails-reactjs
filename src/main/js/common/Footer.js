@@ -7,3 +7,5 @@ var Footer = React.createClass({
 		)
 	}
 });
+
+export default Footer;

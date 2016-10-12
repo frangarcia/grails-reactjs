@@ -1,3 +1,5 @@
+import TableHeaderCell from './TableHeaderCell'
+
 var TableHeaderRow = React.createClass({
     render: function() {
         var i = 1;
@@ -15,3 +17,5 @@ var TableHeaderRow = React.createClass({
         );
     }
 });
+
+export default TableHeaderCell;
